@@ -22,7 +22,6 @@ export const SignUpPage = () =>
     {
         e.preventDefault()
         signup( formData )
-        console.log( "ok" )
     }
 
     const onChangeFullName = ( e: React.ChangeEvent<HTMLInputElement> ) =>
