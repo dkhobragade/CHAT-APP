@@ -1,12 +1,14 @@
-import React, { use, useState } from 'react'
+import React, { useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore'
 import { Link } from 'react-router-dom'
 import AuthImagePattern from '../components/AuthImagePattern'
+import Input from '../lowLevelComponents/Input'
+import Email from '../lowLevelComponents/EmailInput'
+import Password from '../lowLevelComponents/PasswordInput'
 
 export const SignUpPage = () =>
 {
 
-    const [ showPassword, setShowPassword ] = useState( false )
     const [ formData, setFormData ] = useState( {
         fullName: '',
         email: '',
@@ -16,6 +18,21 @@ export const SignUpPage = () =>
     const handleSubmit = () =>
     {
 
+    }
+
+    const onChangeFullName = ( e: React.ChangeEvent<HTMLInputElement> ) =>
+    {
+        setFormData( { ...formData, fullName: e.target.value } )
+    }
+
+    const onChangeEmail = ( e: React.ChangeEvent<HTMLInputElement> ) =>
+    {
+        setFormData( { ...formData, email: e.target.value } )
+    }
+
+    const onChangePassword = ( e: React.ChangeEvent<HTMLInputElement> ) =>
+    {
+        setFormData( { ...formData, password: e.target.value } )
     }
 
     const { isSigningUp } = useAuthStore()
@@ -35,22 +52,13 @@ export const SignUpPage = () =>
                     <form action={ handleSubmit }>
                         <div className='form-control'>
                             <fieldset className="fieldset">
-                                <legend className="fieldset-legend">FullName</legend>
-                                <label className="input validator">
-                                    <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></g></svg>
-                                    <input type="text" value={ formData.fullName } onChange={ e => setFormData( { ...formData, fullName: e.target.value } ) } required placeholder="Username" />
-                                </label>
-                                <legend className="fieldset-legend">Email</legend>
-                                <label className="input validator">
-                                    <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
-                                    <input type="email" placeholder="mail@site.com" value={ formData.email }
-                                        onChange={ e => setFormData( { ...formData, email: e.target.value } ) } required />
-                                </label>
-                                <legend className="fieldset-legend">Password</legend>
-                                <label className="input validator">
-                                    <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle></g></svg>
-                                    <input type="password" required placeholder="Password" onChange={ e => setFormData( { ...formData, password: e.target.value } ) } />
-                                </label>
+
+                                <Input legend='FullName' onchange={ onChangeFullName } placeholder='Username' value={ formData.fullName } />
+
+                                <Email legend='Email' onchange={ onChangeEmail } placeholder='mail@site.com' value={ formData.email } />
+
+                                <Password legend='Password' onchange={ onChangePassword } placeholder='Password' value={ formData.password } />
+
                             </fieldset>
                         </div>
                         { isSigningUp ?
