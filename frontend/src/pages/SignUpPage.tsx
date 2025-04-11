@@ -5,6 +5,7 @@ import AuthImagePattern from '../components/AuthImagePattern'
 import Input from '../lowLevelComponents/Input'
 import Email from '../lowLevelComponents/EmailInput'
 import Password from '../lowLevelComponents/PasswordInput'
+import toast from 'react-hot-toast'
 
 export const SignUpPage = () =>
 {
@@ -15,32 +16,39 @@ export const SignUpPage = () =>
         password: ''
     } )
 
-    const handleSubmit = () =>
-    {
+    const { isSigningUp, signup } = useAuthStore()
 
+    const handleSubmit = ( e: { preventDefault: () => void } ) =>
+    {
+        e.preventDefault()
+        signup( formData )
+        console.log( "ok" )
     }
 
     const onChangeFullName = ( e: React.ChangeEvent<HTMLInputElement> ) =>
     {
+        if ( !e.target.value.trim() ) toast.error( "Enter the fullName" )
         setFormData( { ...formData, fullName: e.target.value } )
     }
 
     const onChangeEmail = ( e: React.ChangeEvent<HTMLInputElement> ) =>
     {
+        if ( !e.target.value.trim() ) toast.error( "Enter the Email" )
         setFormData( { ...formData, email: e.target.value } )
     }
 
     const onChangePassword = ( e: React.ChangeEvent<HTMLInputElement> ) =>
     {
+        if ( !e.target.value.trim() ) toast.error( "Enter the Password" )
         setFormData( { ...formData, password: e.target.value } )
     }
 
-    const { isSigningUp } = useAuthStore()
+
 
     return (
         <div className='min-h-screen grid lg:grid-cols-2'>
             <div className='flex flex-col justify-center items-center p-6 sm:p-12'>
-                <div className='w-full max-w-md space-y-8'>
+                <div className='w-full max-w-80 space-y-8'>
                     <div className='text-center mb-8'>
                         <h1 className='text-2xl font-bold mt-2'>
                             Create Account
@@ -49,7 +57,7 @@ export const SignUpPage = () =>
                             Get Started with your free Account
                         </p>
                     </div>
-                    <form action={ handleSubmit }>
+                    <form onSubmit={ handleSubmit } className='text-center'>
                         <div className='form-control'>
                             <fieldset className="fieldset">
 

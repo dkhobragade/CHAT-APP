@@ -7,6 +7,8 @@ import { SettingPage } from './pages/SettingPage'
 import { SignUpPage } from './pages/SignUpPage'
 import { useAuthStore } from './store/useAuthStore'
 import { useEffect } from 'react'
+import Loading from './lowLevelComponents/Loading'
+import { Toaster } from 'react-hot-toast'
 
 
 const App = () =>
@@ -21,7 +23,7 @@ const App = () =>
     console.log({authUser})
 
     if(isCheckingAuth && !authUser){
-      return <span className="loading loading-ball loading-xl"></span>
+      return <Loading/>
     }
 
     return (
@@ -34,6 +36,7 @@ const App = () =>
           <Route path='/setting' element={ <SettingPage /> } />
           <Route path='/profile' element={ authUser? <ProfilePage /> :<Navigate to='/login'/> } />
         </Routes>
+        <Toaster/>
       </div>
     )
   }

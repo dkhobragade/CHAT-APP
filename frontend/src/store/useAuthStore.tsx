@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { axiosInstance } from '../lib/axios';
+import toast from 'react-hot-toast';
 
 
 export interface AuthState
@@ -9,6 +10,7 @@ export interface AuthState
   isSigningUp: boolean
   isUpdatingProfile: boolean
   checkAuth: () => Promise<void>
+  signup: any
 }
 
 export const useAuthStore = create<AuthState>( ( set ) => ( {
@@ -37,4 +39,40 @@ export const useAuthStore = create<AuthState>( ( set ) => ( {
       set( { isCheckingAuth: false } );
     }
   },
+
+  signup: async ( data: any ) =>
+  {
+    set( { isSigningUp: true } )
+
+    try
+    {
+      const res = await axiosInstance.post( '/auth/signup', data )
+      set( { authUser: res.data } )
+      toast.success( "Account Created Successfully" )
+    }
+    catch ( error )
+    {
+      // toast.error( error.response.data.message )
+      console.log( "Error while singup", error )
+
+    }
+    finally
+    {
+      set( { isSigningUp: false } )
+    }
+  },
+
+  logout: async () =>
+  {
+    try
+    {
+      await axiosInstance.post( "/auth/logout" )
+      set( { authUser: null } )
+      toast.success( "Logout Successfully" )
+    }
+    catch ( err )
+    {
+      console.log( "Error while Logout", err )
+    }
+  }
 } ) );
