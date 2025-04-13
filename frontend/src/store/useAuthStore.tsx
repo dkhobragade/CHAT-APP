@@ -13,7 +13,8 @@ export interface AuthState
   checkAuth: () => Promise<void>
   signup: any,
   logout: any,
-  login: any
+  login: any,
+  updateProfile: any
 }
 
 export const useAuthStore = create<AuthState>( ( set ) => ( {
@@ -22,6 +23,7 @@ export const useAuthStore = create<AuthState>( ( set ) => ( {
   isSigningUp: false,
   isUpdatingProfile: false,
   isLogginUp: false,
+  // updateProfile: null,
 
   checkAuth: async () =>
   {
@@ -99,5 +101,26 @@ export const useAuthStore = create<AuthState>( ( set ) => ( {
     {
       console.log( "Error while Logout", err )
     }
+  },
+
+  updateProfile: async ( data: any ) =>
+  {
+    set( { isUpdatingProfile: true } )
+
+    try
+    {
+      const res = await axiosInstance.put( '/auth/update-profile', data )
+      set( { authUser: res.data } )
+      toast.success( "Profile Updated Successfully" )
+    } catch ( err )
+    {
+      console.log( "Error while Uploading Profile", err )
+      toast.error( "Error while Uploading Profile" )
+    }
+    finally
+    {
+      set( { isUpdatingProfile: false } )
+    }
+
   }
 } ) );
