@@ -10,7 +10,8 @@ export interface AuthState
   isSigningUp: boolean
   isUpdatingProfile: boolean
   checkAuth: () => Promise<void>
-  signup: any
+  signup: any,
+  logout: any
 }
 
 export const useAuthStore = create<AuthState>( ( set ) => ( {
