@@ -2,13 +2,23 @@ import { create } from "zustand";
 import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 
+export interface User
+{
+    _id: string;
+    fullName: string;
+    profilePic?: string;
+    name?: string
+}
+
 export interface MessageState
 {
     messages: [],
-    users: [],
+    users: User[],
     selectedUser: any,
     isUserLoading: boolean,
-    isMessageLoading: boolean
+    isMessageLoading: boolean,
+    getUser: any
+    setSelectedUser: any
 }
 
 export const useMessageStore = create<MessageState>( ( set ) => ( {
@@ -24,7 +34,7 @@ export const useMessageStore = create<MessageState>( ( set ) => ( {
         set( { isUserLoading: true } )
         try
         {
-            const res = await axiosInstance.get( '/message/user' )
+            const res = await axiosInstance.get( '/message/users' )
             set( { users: res.data } )
         }
         catch ( err )
@@ -53,6 +63,8 @@ export const useMessageStore = create<MessageState>( ( set ) => ( {
         {
             set( { isMessageLoading: false } )
         }
-    }
+    },
+
+    setSelectedUser: ( selectedUser: any ) => set( { selectedUser } )
 
 } ) )
