@@ -23,7 +23,6 @@ export const useAuthStore = create<AuthState>( ( set ) => ( {
   isSigningUp: false,
   isUpdatingProfile: false,
   isLogginUp: false,
-  // updateProfile: null,
 
   checkAuth: async () =>
   {
