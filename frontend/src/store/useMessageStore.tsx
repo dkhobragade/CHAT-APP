@@ -12,7 +12,7 @@ export interface User
 
 export interface MessageState
 {
-    messages: [],
+    messages: any[],
     users: User[],
     selectedUser: any,
     isUserLoading: boolean,
@@ -22,7 +22,7 @@ export interface MessageState
     getMessages: any
 }
 
-export const useMessageStore = create<MessageState>( ( set ) => ( {
+export const useMessageStore = create<MessageState>( ( set, get ) => ( {
 
     messages: [],
     users: [],
@@ -64,6 +64,21 @@ export const useMessageStore = create<MessageState>( ( set ) => ( {
         {
             set( { isMessageLoading: false } )
         }
+    },
+
+    sendMessages: async ( messageData: any ) =>
+    {
+        const { selectedUser, messages } = get()
+        try
+        {
+            const res = await axiosInstance.post( `/messages/send/${ selectedUser._id }`, messageData )
+            set( { messages: [ ...messages, res.data ] } )
+        }
+        catch ( err )
+        {
+            console.log( "Error while sending the messages", err )
+        }
+
     },
 
     setSelectedUser: ( selectedUser: any ) => set( { selectedUser } )
