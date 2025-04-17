@@ -14,6 +14,7 @@ export interface AuthState
   signup: any,
   logout: any,
   login: any,
+  onlineUsers: [],
   updateProfile: any
 }
 
@@ -21,6 +22,7 @@ export const useAuthStore = create<AuthState>( ( set ) => ( {
   authUser: null,
   isCheckingAuth: false,
   isSigningUp: false,
+  onlineUsers: [],
   isUpdatingProfile: false,
   isLogginUp: false,
 

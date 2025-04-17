@@ -18,7 +18,8 @@ export interface MessageState
     isUserLoading: boolean,
     isMessageLoading: boolean,
     getUser: any
-    setSelectedUser: any
+    setSelectedUser: any,
+    getMessages: any
 }
 
 export const useMessageStore = create<MessageState>( ( set ) => ( {
