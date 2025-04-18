@@ -21,21 +21,21 @@ export const Navbar = () =>
             </Link>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Link to='/setting' className={ `btn btn-sm gap-2 transition-colors` }>
-              <Settings className=" w-4 h-4" />
+          <div className="flex items-center gap-2 ">
+            <Link to='/setting' className={ `btn btn-sm gap-2 transition-colors ` }>
+              <Settings className=" w-4 h-4 cursor-pointer" />
               <span className="hidden sm:inline">Setting</span>
             </Link>
 
             { authUser && (
               <>
                 <Link to={ '/profile' } className={ `btn btn-sm gap-2` } >
-                  <User className="size-5" />
+                  <User className="size-5 cursor-pointer" />
                   <span className="hidden sm:inline">Profile</span>
                 </Link>
 
-                <button className="flex gap-2 items-center" onClick={ logout } >
-                  <LogOut className="size-5" />
+                <button className="flex gap-2 items-center cursor-pointer" onClick={ logout } >
+                  <LogOut className="size-5 " />
                   <span className="hidden sm:inline">LogOut</span>
                 </button>
               </>
