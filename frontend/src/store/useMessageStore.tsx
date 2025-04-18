@@ -54,7 +54,7 @@ export const useMessageStore = create<MessageState>( ( set, get ) => ( {
         set( { isMessageLoading: true } )
         try
         {
-            const res = await axiosInstance( `/message/${ userId }` )
+            const res = await axiosInstance.get( `/message/${ userId }` )
             set( { messages: res.data } )
         }
         catch ( err )
