@@ -31,10 +31,10 @@ const ChatContainer = () =>
             <ChatHeader />
             <div className='flex-1 overflow-y-auto p-4 space-y-4'>
                 { messages.map( ( mess ) => (
-                    <div key={ mess._id } className={ `chat ${ mess.senderID === authUser._id ? "chat-start" : "chat-end" }` }>
+                    <div key={ mess._id } className={ `chat ${ mess.senderId === authUser._id ? "chat-end" : "chat-start" }` }>
                         <div className='chat-image avatar'>
                             <div className='size-10 rounded-full border'>
-                                <img src={ mess.senderID === authUser._id ? authUser.profilePic || "/avatar.png" : selectedUser.profilePic || "/avatar.png" } alt="Profile Pic" />
+                                <img src={ mess.senderId === authUser._id ? authUser.profilePic || "/avatar.png" : selectedUser.profilePic || "/avatar.png" } alt="Profile Pic" />
                             </div>
                         </div>
                         <div className='chat-header mb-1'>
