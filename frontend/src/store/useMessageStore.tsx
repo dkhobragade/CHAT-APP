@@ -19,7 +19,8 @@ export interface MessageState
     isMessageLoading: boolean,
     getUser: any
     setSelectedUser: any,
-    getMessages: any
+    getMessages: any,
+    sendMessages: any
 }
 
 export const useMessageStore = create<MessageState>( ( set, get ) => ( {
@@ -71,7 +72,7 @@ export const useMessageStore = create<MessageState>( ( set, get ) => ( {
         const { selectedUser, messages } = get()
         try
         {
-            const res = await axiosInstance.post( `/messages/send/${ selectedUser._id }`, messageData )
+            const res = await axiosInstance.post( `/message/send/${ selectedUser._id }`, messageData )
             set( { messages: [ ...messages, res.data ] } )
         }
         catch ( err )
