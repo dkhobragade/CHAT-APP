@@ -22,7 +22,7 @@ export const protectRoute= async(req,res,next)=>{
             })
         }
 
-        const user = await User.findOne(decodeToken.userId).select('-password')
+        const user = await User.findById(decodeToken.userID).select('-password')
 
         if(!user){
             return res.status(404).json({
