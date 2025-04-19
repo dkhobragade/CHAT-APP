@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { axiosInstance } from '../lib/axios';
 import toast from 'react-hot-toast';
+import { useMessageStore } from './useMessageStore';
 
 
 export interface AuthState
@@ -96,6 +97,7 @@ export const useAuthStore = create<AuthState>( ( set ) => ( {
     {
       await axiosInstance.post( "/auth/logout" )
       set( { authUser: null } )
+      useMessageStore.getState().setSelectedUser( null )
       toast.success( "Logout Successfully" )
     }
     catch ( err )
