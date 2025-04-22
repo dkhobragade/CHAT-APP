@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useMessageStore } from '../store/useMessageStore'
 import { Image, Send, X } from 'lucide-react'
 import toast from 'react-hot-toast'
