@@ -93,6 +93,7 @@ export const useMessageStore = create<MessageState>( ( set, get ) => ( {
 
         socket.on( "newMessage", ( newMessage: any ) =>
         {
+            if ( newMessage.senderId !== selectedUser._id ) return
             set( {
                 messages: [ ...get().messages, newMessage ]
             } )
