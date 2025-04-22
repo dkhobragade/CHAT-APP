@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios";
+import { useAuthStore } from "./useAuthStore";
 
 export interface User
 {
@@ -19,7 +20,9 @@ export interface MessageState
     getUser: any
     setSelectedUser: any,
     getMessages: any,
-    sendMessages: any
+    sendMessages: any,
+    subscribeNewMessage: any,
+    unSubscribeNewMessage: any
 }
 
 export const useMessageStore = create<MessageState>( ( set, get ) => ( {
@@ -79,6 +82,29 @@ export const useMessageStore = create<MessageState>( ( set, get ) => ( {
             console.log( "Error while sending the messages", err )
         }
 
+    },
+
+    subscribeNewMessage: () =>
+    {
+        const { selectedUser } = get()
+        if ( !selectedUser ) return
+
+        const socket = useAuthStore.getState().socket
+
+        socket.on( "newMessage", ( newMessage: any ) =>
+        {
+            set( {
+                messages: [ ...get().messages, newMessage ]
+            } )
+
+        } )
+
+    },
+
+    unSubscribeNewMessage: () =>
+    {
+        const socket = useAuthStore.getState().socket
+        socket.off( "newMessage" )
     },
 
     setSelectedUser: ( selectedUser: any ) => set( { selectedUser } )
