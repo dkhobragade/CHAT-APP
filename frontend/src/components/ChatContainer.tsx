@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useMessageStore } from '../store/useMessageStore'
 import ChatHeader from './ChatHeader'
 import MessageInput from './MessageInput'
@@ -10,6 +10,7 @@ const ChatContainer = () =>
 {
     const { messages, getMessages, isMessageLoading, selectedUser, subscribeNewMessage, unSubscribeNewMessage } = useMessageStore()
     const { authUser } = useAuthStore()
+    const messageEndRef = useRef<any>( null )
 
     useEffect( () =>
     {
@@ -18,6 +19,14 @@ const ChatContainer = () =>
 
         return () => unSubscribeNewMessage()
     }, [ selectedUser._id, getMessages, unSubscribeNewMessage, subscribeNewMessage ] )
+
+    useEffect( () =>
+    {
+        if ( messageEndRef.current && messages )
+        {
+            messageEndRef.current.scrollIntoView( { behavior: "smooth" } )
+        }
+    }, [ messages ] )
 
     if ( isMessageLoading )
     {
@@ -34,7 +43,7 @@ const ChatContainer = () =>
             <ChatHeader />
             <div className='flex-1 overflow-y-auto p-4 space-y-4'>
                 { messages.map( ( mess ) => (
-                    <div key={ mess._id } className={ `chat ${ mess.senderId === authUser._id ? "chat-end" : "chat-start" }` }>
+                    <div key={ mess._id } ref={ messageEndRef } className={ `chat ${ mess.senderId === authUser._id ? "chat-end" : "chat-start" }` }>
                         <div className='chat-image avatar'>
                             <div className='size-10 rounded-full border'>
                                 <img src={ mess.senderId === authUser._id ? authUser.profilePic || "/avatar.png" : selectedUser.profilePic || "/avatar.png" } alt="Profile Pic" />
