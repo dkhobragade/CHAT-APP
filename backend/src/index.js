@@ -18,6 +18,7 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(cookie_parser())
+
 app.use("/api/auth",authRoutes)
 app.use("/api/message",messageRoutes)
 
