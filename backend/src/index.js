@@ -7,6 +7,7 @@ import messageRoutes from '../src/routes/message.routes.js'
 import cors from 'cors'
 import {app,server} from '../src/lib/socket.js'
 import path from 'path'
+import emailRoutes from '../src/routes/email.routes.js'
 
 dotenv.config()
 const PORT = process.env.PORT
@@ -21,6 +22,7 @@ app.use(cookie_parser())
 
 app.use("/api/auth",authRoutes)
 app.use("/api/message",messageRoutes)
+app.use("/api",emailRoutes)
 
 if(process.env.NODE_ENV==="production"){
     app.use(express.static(path.join(__dirname,"../frontend/dist")))
@@ -29,8 +31,6 @@ if(process.env.NODE_ENV==="production"){
         res.sendFile(path.join(__dirname,"../frontend","dist","index.html"))
     })
 }
-
-
 server.listen(PORT,()=>{
     console.log(`server is running on port ${PORT}`)
     connectDB()
