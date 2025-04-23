@@ -143,6 +143,27 @@ export const updateProfile= async(req,res)=>{
     }
 }
 
+
+export const updateFullName = async(req,res)=>{
+
+    try{
+        const {fullName}=req.body
+        const userId = req.user._id
+
+        const updateFullName = await User.findByIdAndUpdate(userId,{fullName:fullName},
+            {new:true}
+        )
+        res.status(200).json(updateFullName)
+
+    }
+    catch(err){
+        console.log("Error while updating FullName",error.message)
+        res.status(500).json({
+            message:'Internal Server Error'
+        })
+    }
+}
+
 export const checkAuth = (req,res) => {
     try{
         res.status(200).json(req.user)

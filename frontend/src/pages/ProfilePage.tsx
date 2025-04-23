@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore'
 import { Camera, Mail, User } from 'lucide-react'
+import Input from '../lowLevelComponents/Input'
+import toast from 'react-hot-toast'
+import Button from '../lowLevelComponents/Button'
 
 export const ProfilePage = () =>
 {
 
-    const { updateProfile, isUpdatingProfile, authUser } = useAuthStore()
+    const { updateProfile, isUpdatingProfile, authUser, updateFullName } = useAuthStore()
     const [ selectedImg, setSelectedImg ] = useState<string | any>( null )
+    const [ fullName, setFullName ] = useState( authUser?.fullName )
 
 
     const handleImageUpload = async ( e: any ) =>
@@ -25,6 +29,21 @@ export const ProfilePage = () =>
         }
 
 
+    }
+
+    const handleNameChange = ( e: React.ChangeEvent<HTMLInputElement> ) =>
+    {
+        setFullName( e.target.value )
+    }
+
+    const onClickSubmit = async () =>
+    {
+        if ( !fullName.trim() )
+        {
+            toast.error( "Please enter the FullName" )
+            return
+        }
+        await updateFullName( { fullName: fullName } )
     }
 
     return (
@@ -75,7 +94,7 @@ export const ProfilePage = () =>
                                 <User className='w-4 h-4' />
                                 FullName
                             </div>
-                            <p className='px-4 py-2.5 bg-base-200 rounded-lg border'>{ authUser?.fullName }</p>
+                            <Input noIcon value={ fullName } placeholder="FullName" onchange={ handleNameChange } className='px-4 py-2.5 bg-base-200 rounded-lg border' />
                         </div>
 
                         <div className='space-y-1.5'>
@@ -83,8 +102,9 @@ export const ProfilePage = () =>
                                 <Mail className='w-4 h-4' />
                                 Email Address
                             </div>
-                            <p className='px-4 py-2.5 bg-base-200 rounded-lg border'>{ authUser?.email }</p>
+                            <Input isDisable value={ authUser?.email } noIcon className='px-4 py-2.5 bg-base-200 rounded-lg border' />
                         </div>
+                        <Button isDisable={ fullName.trim() === authUser?.fullName } onChange={ onClickSubmit } text="Submit" />
                     </div>
 
                     <div className='mt-6 bg-base-300 rounded-xl p-6'>

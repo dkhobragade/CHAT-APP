@@ -21,6 +21,7 @@ export interface AuthState
   login: any,
   onlineUsers: any[],
   updateProfile: any,
+  updateFullName: any,
   connectSocket: () => void;
   disConnectSocket: () => void;
 }
@@ -134,6 +135,22 @@ export const useAuthStore = create<AuthState>( ( set, get ) => ( {
     {
       set( { isUpdatingProfile: false } )
     }
+  },
+
+  updateFullName: async ( data: any ) =>
+  {
+    try
+    {
+      const res = await axiosInstance.put( '/auth/update-fullName', data )
+      set( { authUser: res.data } )
+      toast.success( "FullName Updated Successfully" )
+    }
+    catch ( err )
+    {
+      console.log( "Error while Updating FullName", err )
+      toast.error( "Error while Updating FullName" )
+    }
+
   },
 
   connectSocket: () =>
