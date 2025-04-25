@@ -38,15 +38,16 @@ export const AddPeopleContainer = () =>
     }
 
     return (
-        <div className='flex-1 flex flex-col overflow-auto'>
+
+
+        <div className='flex-1 flex flex-col overflow-auto' >
             <ChatHeader showImg={ false } className='justify-end p-1' />
-            <div className="bg-inherit  p-8 rounded-lg shadow-lg w-full max-w-md">
+            <div className="bg-inherit mt-15 self-center p-8 rounded-lg shadow-lg w-full max-w-md">
                 <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Connect Instantly</h1>
                 <p className="text-center text-gray-600 mb-6">Just enter their email or phone number to connect!</p>
-
                 <form id="connectForm" className="space-y-4" onSubmit={ sendEmail }>
                     <div>
-                        <label htmlFor="contactInput" className="block text-sm font-medium text-gray-700 " style={ { width: '100%' } }>Email or Phone Number</label>
+                        <label htmlFor="contactInput" className="block text-sm font-medium text-gray-700 "  >Email or Phone Number</label>
                         <Email value={ email } legend={ '' } placeholder="Enter the email" onchange={ onEmailChange } />
                     </div>
                     <button
@@ -58,7 +59,7 @@ export const AddPeopleContainer = () =>
                     </button>
                 </form>
             </div>
+        </div >
 
-        </div>
     )
 }
