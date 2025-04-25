@@ -108,6 +108,7 @@ export const useAuthStore = create<AuthState>( ( set, get ) => ( {
       await axiosInstance.post( "/auth/logout" )
       set( { authUser: null } )
       useMessageStore.getState().setSelectedUser( null )
+      useMessageStore.getState().setAddPeople( false )
       toast.success( "Logout Successfully" )
       get().disConnectSocket()
     }
@@ -181,3 +182,8 @@ export const useAuthStore = create<AuthState>( ( set, get ) => ( {
     if ( get().socket?.connected ) get().socket.disconnect()
   }
 } ) );
+
+function setSelectedUser ()
+{
+  throw new Error( 'Function not implemented.' );
+}
