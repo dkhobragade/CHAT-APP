@@ -2,11 +2,28 @@ import { useMessageStore } from '../store/useMessageStore'
 import Sidebar from '../components/Sidebar'
 import ChatContainer from '../components/ChatContainer'
 import { NoChatSelected } from '../components/NoChatSelected'
+import { AddPeopleContainer } from '../components/AddPeopleContainer'
 
 export const HomePage = () =>
 {
 
-    const { selectedUser } = useMessageStore()
+    const { selectedUser, addPeople } = useMessageStore()
+
+    const renderChatContainer = () =>
+    {
+        if ( addPeople && !selectedUser )
+        {
+            return <AddPeopleContainer />
+        }
+        else if ( selectedUser )
+        {
+            return <ChatContainer />
+        }
+        else
+        {
+            return <NoChatSelected />
+        }
+    }
 
     return (
         <div className='w-full h-screen bg-base-200'>
@@ -14,7 +31,7 @@ export const HomePage = () =>
                 <div className='bg-base-100 rounded-lg shadow-xl w-full  h-[calc(105vh-8rem)]'>
                     <div className='flex w-full h-full rounded-lg overflow-hidden'>
                         <Sidebar />
-                        { !selectedUser ? <NoChatSelected /> : <ChatContainer /> }
+                        { renderChatContainer() }
                     </div>
                 </div>
             </div>

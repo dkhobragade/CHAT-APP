@@ -22,7 +22,9 @@ export interface MessageState
     getMessages: any,
     sendMessages: any,
     subscribeNewMessage: any,
-    unSubscribeNewMessage: any
+    unSubscribeNewMessage: any,
+    addPeople: boolean,
+    setAddPeople: ( value: boolean ) => void
 }
 
 export const useMessageStore = create<MessageState>( ( set, get ) => ( {
@@ -32,6 +34,8 @@ export const useMessageStore = create<MessageState>( ( set, get ) => ( {
     selectedUser: null,
     isUserLoading: false,
     isMessageLoading: false,
+    addPeople: false,
+    setAddPeople: ( value ) => set( { addPeople: value } ),
 
     getUser: async () =>
     {
@@ -108,6 +112,6 @@ export const useMessageStore = create<MessageState>( ( set, get ) => ( {
         socket.off( "newMessage" )
     },
 
-    setSelectedUser: ( selectedUser: any ) => set( { selectedUser } )
+    setSelectedUser: ( selectedUser: any ) => set( { selectedUser } ),
 
 } ) )

@@ -7,13 +7,20 @@ import { useAuthStore } from '../store/useAuthStore'
 const Sidebar = () =>
 {
 
-    const { getUser, users, selectedUser, setSelectedUser, isUserLoading } = useMessageStore()
+    const { getUser, users, selectedUser, setSelectedUser, isUserLoading, setAddPeople } = useMessageStore()
     const { onlineUsers } = useAuthStore()
 
     useEffect( () =>
     {
         getUser()
     }, [ getUser ] )
+
+    const onClickAddPeople = () =>
+    {
+        setSelectedUser( null )
+        setAddPeople( true )
+    }
+
 
     if ( isUserLoading ) return <SidebarSkeleton />
 
@@ -22,7 +29,7 @@ const Sidebar = () =>
             <div className='border-b border-base-300 w-full p-5'>
                 <div className='flex items-center gap-2'>
                     <User className='size-6' />
-                    <span className='font-medium hidden lg:block'>Contacts</span>
+                    <button className="btn btn-dash btn-xs btn-info" onClick={ onClickAddPeople }>Add People</button>
                 </div>
             </div>
             <div className="overflow-y-auto w-full py-3">
