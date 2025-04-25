@@ -164,6 +164,23 @@ export const updateFullName = async(req,res)=>{
     }
 }
 
+
+export const aboutInfo= async(req,res)=>{
+    try{
+        const {about}=req.body
+        const userId = req.user._id
+
+        const  aboutInfo = await User.findByIdAndUpdate(userId,{about:about},{new:true})
+        res.status(200).json(aboutInfo)
+    }
+    catch(err){
+        console.log("Error while adding about",error.message)
+        res.status(500).json({
+            message:'Internal Server Error'
+        })
+    }
+}
+
 export const checkAuth = (req,res) => {
     try{
         res.status(200).json(req.user)

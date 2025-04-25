@@ -22,6 +22,8 @@ export interface AuthState
   onlineUsers: any[],
   updateProfile: any,
   updateFullName: any,
+  aboutInfomation: any,
+  aboutInfo: string,
   connectSocket: () => void;
   disConnectSocket: () => void;
 }
@@ -34,6 +36,7 @@ export const useAuthStore = create<AuthState>( ( set, get ) => ( {
   isUpdatingProfile: false,
   isLogginUp: false,
   socket: null,
+  aboutInfo: '',
 
   checkAuth: async () =>
   {
@@ -150,6 +153,22 @@ export const useAuthStore = create<AuthState>( ( set, get ) => ( {
     {
       console.log( "Error while Updating FullName", err )
       toast.error( "Error while Updating FullName" )
+    }
+
+  },
+
+  aboutInfomation: async ( data: any ) =>
+  {
+    try
+    {
+      const res = await axiosInstance.put( '/auth/about', data )
+      set( { authUser: res.data } )
+      toast.success( "Added About Info Successfully" )
+    }
+    catch ( err )
+    {
+      console.log( "Error while adding About Info", err )
+      toast.error( "Error while adding About Info" )
     }
 
   },

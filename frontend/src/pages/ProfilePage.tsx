@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore'
-import { Camera, Mail, User } from 'lucide-react'
+import { BadgeInfo, Camera, Mail, User } from 'lucide-react'
 import Input from '../lowLevelComponents/Input'
 import toast from 'react-hot-toast'
 import Button from '../lowLevelComponents/Button'
@@ -8,9 +8,10 @@ import Button from '../lowLevelComponents/Button'
 export const ProfilePage = () =>
 {
 
-    const { updateProfile, isUpdatingProfile, authUser, updateFullName } = useAuthStore()
+    const { updateProfile, isUpdatingProfile, authUser, updateFullName, aboutInfomation } = useAuthStore()
     const [ selectedImg, setSelectedImg ] = useState<string | any>( null )
-    const [ fullName, setFullName ] = useState( authUser?.fullName )
+    const [ fullName, setFullName ] = useState<string>( authUser?.fullName )
+    const [ aboutInfo, setAboutInfo ] = useState<string>( authUser.about )
 
 
     const handleImageUpload = async ( e: any ) =>
@@ -36,14 +37,29 @@ export const ProfilePage = () =>
         setFullName( e.target.value )
     }
 
+    const handleAboutInfo = ( e: React.ChangeEvent<HTMLInputElement> ) =>
+    {
+        setAboutInfo( e.target.value )
+    }
+
     const onClickSubmit = async () =>
     {
+
         if ( !fullName.trim() )
         {
             toast.error( "Please enter the FullName" )
             return
         }
-        await updateFullName( { fullName: fullName } )
+        if ( fullName.trim() !== authUser.fullName )
+        {
+
+            await updateFullName( { fullName: fullName } )
+        }
+
+        if ( aboutInfo !== authUser.about )
+        {
+            await aboutInfomation( { about: aboutInfo } )
+        }
     }
 
     return (
@@ -99,12 +115,20 @@ export const ProfilePage = () =>
 
                         <div className='space-y-1.5'>
                             <div className='text-sm text-zinc-600 flex items-center gap-2'>
+                                <BadgeInfo className='w-4 h-4' />
+                                About
+                            </div>
+                            <Input value={ aboutInfo } placeholder='About' onchange={ handleAboutInfo } noIcon className='px-4 py-2.5 bg-base-200 rounded-lg border' />
+                        </div>
+
+                        <div className='space-y-1.5'>
+                            <div className='text-sm text-zinc-600 flex items-center gap-2'>
                                 <Mail className='w-4 h-4' />
                                 Email Address
                             </div>
                             <Input isDisable value={ authUser?.email } noIcon className='px-4 py-2.5 bg-base-200 rounded-lg border' />
                         </div>
-                        <Button isDisable={ fullName.trim() === authUser?.fullName } onChange={ onClickSubmit } text="Submit" />
+                        <Button isDisable={ fullName.trim() === authUser?.fullName && aboutInfo.trim() === authUser.about } onChange={ onClickSubmit } text="Submit" />
                     </div>
 
                     <div className='mt-6 bg-base-300 rounded-xl p-6'>
