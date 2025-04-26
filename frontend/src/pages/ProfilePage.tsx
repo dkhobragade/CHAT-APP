@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore'
-import { BadgeInfo, Camera, Mail, User } from 'lucide-react'
+import { BadgeInfo, Camera, Mail, ShieldAlert, User } from 'lucide-react'
 import Input from '../lowLevelComponents/Input'
 import toast from 'react-hot-toast'
 import Button from '../lowLevelComponents/Button'
+import Email from '../lowLevelComponents/EmailInput'
 
 export const ProfilePage = () =>
 {
@@ -12,6 +13,8 @@ export const ProfilePage = () =>
     const [ selectedImg, setSelectedImg ] = useState<string | any>( null )
     const [ fullName, setFullName ] = useState<string>( authUser?.fullName )
     const [ aboutInfo, setAboutInfo ] = useState<string>( authUser.about )
+    const [ email, setEmail ] = useState<string>( '' )
+    const [ showDeleteInfoContainer, setShowDeleteInfoContainer ] = useState<boolean>( false )
 
 
     const handleImageUpload = async ( e: any ) =>
@@ -60,6 +63,24 @@ export const ProfilePage = () =>
         {
             await aboutInfomation( { about: aboutInfo } )
         }
+    }
+
+    const deleteAccount = () =>
+    {
+        if ( email !== authUser.email )
+        {
+            toast.error( "Email does not match. Please enter a valid email." )
+        }
+    }
+
+    const showDeleteInfo = () =>
+    {
+        setShowDeleteInfoContainer( true )
+    }
+
+    const onDeleteAccountEmail = ( e: React.ChangeEvent<HTMLInputElement> ) =>
+    {
+        setEmail( e.target.value )
     }
 
     return (
@@ -143,8 +164,23 @@ export const ProfilePage = () =>
                                 <span className='text-green-500'>Active</span>
                             </div>
                         </div>
-
                     </div>
+                    <Button type='error' onChange={ showDeleteInfo } text="Delete my account" isDisable={ false } />
+                    { showDeleteInfoContainer &&
+                        <>
+                            <div className='flex gap-4'>
+                                <ShieldAlert color="#ff0000" />
+                                <p>Deleting your account will :</p>
+                                <ul>
+                                    <li>Delete your account info andprofile photo</li>
+                                    <li>Delete you from all chats</li>
+                                    <li>Delete your Message history</li>
+                                </ul>
+                            </div>
+                            <Email legend="Enter your Email" value={ email } onchange={ onDeleteAccountEmail } />
+                            <Button type='error' onChange={ deleteAccount } text="Delete account permanently" isDisable={ false } />
+                        </>
+                    }
                 </div>
             </div>
         </div>

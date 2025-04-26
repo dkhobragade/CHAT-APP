@@ -3,7 +3,7 @@ interface Props
 {
     legend: string,
     value: string,
-    placeholder: string,
+    placeholder?: string,
     onchange: ( e: React.ChangeEvent<HTMLInputElement> ) => void
 }
 
