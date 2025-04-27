@@ -16,6 +16,8 @@ The project focuses on providing smooth user experience, secure real-time messag
  Profile Picture Upload (Upload and update user profile picture) -**DONE**
 
  Delete Account Permentaly - **DONE**
+
+ Emoji Support (Send and view emojis) -**DONE**
  
  Group Chats (Create and join group conversations)-**UPCOMING**
 
@@ -26,8 +28,6 @@ The project focuses on providing smooth user experience, secure real-time messag
  Message Read Receipts (Sent, Delivered, and Seen ticks) -**UPCOMING**
 
  Media Sharing (Images, Videos, Documents) -**UPCOMING**
-
- Emoji Support (Send and view emojis) -**UPCOMING**
 
  Voice Notes (Record and send audio messages) -**UPCOMING**
 
