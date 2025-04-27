@@ -3,7 +3,8 @@ Welcome to the DkChat project!
 This is a full-featured real-time messaging application inspired by WhatsApp, built with modern web technologies.
 The project focuses on providing smooth user experience, secure real-time messaging, and essential features users expect from a messaging platform.
 
-🚀** _Features [Added/Upcoming]_**
+🚀 _Features [Added/Upcoming]_
+
  User Authentication (Sign Up, Login, Logout) -**DONE**
 
  Real-time Messaging (Send and receive instant messages) -**DONE**
@@ -46,7 +47,7 @@ The project focuses on providing smooth user experience, secure real-time messag
 
  Settings Screen (Account, Privacy, Notifications) -**UPCOMING**
 
-🛠️ **_Tech Stack_**
+🛠️ **Tech Stack**
 
 Frontend: React.js 
 
@@ -60,11 +61,11 @@ Real-Time Communication: Socket.io
 
 Storage: cloudniary
 
-📸** _Screenshots_**
+📸 **Screenshots**
 ![image](https://github.com/user-attachments/assets/5a40a49b-5ad9-4bad-ad6a-1933dfd43e9e)
 
 
-⚙️** _Installation and Setup_**
+⚙️ **Installation and Setup**
 
 # Clone the repository
 git clone https://github.com/your-username/whatsapp-clone.git
