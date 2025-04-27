@@ -9,7 +9,7 @@ import Email from '../lowLevelComponents/EmailInput'
 export const ProfilePage = () =>
 {
 
-    const { updateProfile, isUpdatingProfile, authUser, updateFullName, aboutInfomation } = useAuthStore()
+    const { updateProfile, isUpdatingProfile, authUser, updateFullName, logout, aboutInfomation, deleteAccount } = useAuthStore()
     const [ selectedImg, setSelectedImg ] = useState<string | any>( null )
     const [ fullName, setFullName ] = useState<string>( authUser?.fullName )
     const [ aboutInfo, setAboutInfo ] = useState<string>( authUser.about )
@@ -65,12 +65,15 @@ export const ProfilePage = () =>
         }
     }
 
-    const deleteAccount = () =>
+    const conformDelete = () =>
     {
-        if ( email !== authUser.email )
+        if ( email !== authUser.email && email.trim() === '' )
         {
             toast.error( "Email does not match. Please enter a valid email." )
+            return
         }
+        deleteAccount( email )
+        logout()
     }
 
     const showDeleteInfo = () =>
@@ -178,7 +181,7 @@ export const ProfilePage = () =>
                                 </ul>
                             </div>
                             <Email legend="Enter your Email" value={ email } onchange={ onDeleteAccountEmail } />
-                            <Button type='error' onChange={ deleteAccount } text="Delete account permanently" isDisable={ false } />
+                            <Button type='error' onChange={ conformDelete } text="Delete account permanently" isDisable={ false } />
                         </>
                     }
                 </div>

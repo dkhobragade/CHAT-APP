@@ -26,6 +26,7 @@ export interface AuthState
   aboutInfo: string,
   connectSocket: () => void;
   disConnectSocket: () => void;
+  deleteAccount: any
 }
 
 export const useAuthStore = create<AuthState>( ( set, get ) => ( {
@@ -73,6 +74,7 @@ export const useAuthStore = create<AuthState>( ( set, get ) => ( {
     }
     catch ( err )
     {
+      toast.error( "Invalid Credentials" )
       console.log( "Error while Logining", err )
     }
     finally
@@ -172,6 +174,21 @@ export const useAuthStore = create<AuthState>( ( set, get ) => ( {
     }
 
   },
+
+  deleteAccount: async ( data: any ) =>
+  {
+    try
+    {
+      await axiosInstance.put( '/auth/delete', data )
+      toast.success( "Account deleted Successfully" )
+    }
+    catch ( err )
+    {
+      console.log( "Error while deleting account", err )
+      toast.error( "Error while deleting account" )
+    }
+  },
+
 
   connectSocket: () =>
   {
