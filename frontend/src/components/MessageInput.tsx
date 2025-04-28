@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useMessageStore } from '../store/useMessageStore'
-import { Annoyed, Image, Send, X } from 'lucide-react'
+import { Annoyed, Image, Mic, Send, X } from 'lucide-react'
 import toast from 'react-hot-toast'
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react'
 
@@ -92,20 +92,29 @@ const MessageInput = () =>
             <form onSubmit={ handleSendMessage }>
                 <div className='flex-1 flex gap-2'>
                     <input type="text" className='w-full input input-bordered rounded-lg input-sm sm:input-md' placeholder='Type a message...' value={ text } onChange={ ( e ) => setText( e.target.value ) } />
-                    <Annoyed size={ 20 } className='w-10 h-10' color="#e70d0d" strokeWidth={ 1 } onClick={ () => setIsEmojiBoxOpen( !isEmojiBoxOpen ) } />
-                    <input type="file" accept='image/*' className='hidden' ref={ fileInputRef } onChange={ handleImageChange } />
+                    { !text &&
+                        <>
+                            <Annoyed size={ 20 } className='w-10 h-10' color="#e70d0d" strokeWidth={ 1 } onClick={ () => setIsEmojiBoxOpen( !isEmojiBoxOpen ) } />
+                            <input type="file" accept='image/*' className='hidden' ref={ fileInputRef } onChange={ handleImageChange } />
 
-                    <button
-                        type="button"
-                        className={ `hidden sm:flex btn btn-circle
-                     ${ imagePreview ? "text-emerald-500" : "text-zinc-400" }` }
-                        onClick={ () => fileInputRef.current?.click() }
-                    >
-                        <Image size={ 20 } color="#e70d0d" />
-                    </button>
-                    <button type='submit' className='btn btn-circle' disabled={ !text.trim() && !imagePreview }>
-                        <Send size={ 20 } color="#0de74f" />
-                    </button>
+                            <button
+                                type="button"
+                                className={ `hidden sm:flex btn btn-circle
+                            ${ imagePreview ? "text-emerald-500" : "text-zinc-400" }` }
+                                onClick={ () => fileInputRef.current?.click() }
+                            >
+                                <Image size={ 20 } color="#e70d0d" />
+                            </button>
+                            <button>
+                                <Mic size={ 20 } className='btn btn-circle' color="#ff0000" />
+                            </button>
+                        </>
+                    }
+                    { text &&
+                        <button type='submit' className='btn btn-circle' disabled={ !text.trim() && !imagePreview }>
+                            <Send size={ 20 } color="#0de74f" />
+                        </button>
+                    }
                 </div>
                 <EmojiPicker onEmojiClick={ handleEmojiClick } className='hidden w-full' style={ { width: '100%', height: '20rem' } } autoFocusSearch={ false } searchDisabled={ true } open={ isEmojiBoxOpen } />
             </form>
