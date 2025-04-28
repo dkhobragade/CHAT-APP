@@ -7,7 +7,7 @@ import { useAuthStore } from '../store/useAuthStore'
 const Sidebar = () =>
 {
 
-    const { getUser, users, selectedUser, setSelectedUser, isUserLoading, setAddPeople } = useMessageStore()
+    const { getUser, users, selectedUser, setSelectedUser, isUserLoading, setAddPeople, setOpenSelectedUserInfo } = useMessageStore()
     const { onlineUsers } = useAuthStore()
 
     useEffect( () =>
@@ -17,6 +17,7 @@ const Sidebar = () =>
 
     const onClickAddPeople = () =>
     {
+        setOpenSelectedUserInfo( false )
         setSelectedUser( null )
         setAddPeople( true )
     }
@@ -36,7 +37,7 @@ const Sidebar = () =>
                 { users.map( ( user ) => (
                     <button
                         key={ user._id }
-                        onClick={ () => setSelectedUser( user ) }
+                        onClick={ () => { setSelectedUser( user ), setOpenSelectedUserInfo( false ) } }
                         className={ `
               w-full p-3 flex items-center gap-3
               hover:bg-base-300 transition-colors

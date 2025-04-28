@@ -21,7 +21,7 @@ const MessageInput = () =>
 
     const handleImageChange = ( e: any ) =>
     {
-        setIsEmojiBoxOpen( !isEmojiBoxOpen )
+        setIsEmojiBoxOpen( false )
         const file = e.target.files[ 0 ]
         if ( !file.type.startsWith( 'image/' ) )
         {
@@ -43,8 +43,8 @@ const MessageInput = () =>
 
     const handleSendMessage = async ( e: any ) =>
     {
-        setIsEmojiBoxOpen( !isEmojiBoxOpen )
         e.preventDefault()
+        setIsEmojiBoxOpen( false )
         if ( !text.trim() && !imagePreview ) return
 
         try

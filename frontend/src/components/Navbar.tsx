@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom"
 import { useAuthStore } from "../store/useAuthStore"
 import { LogOut, MessageSquare, Settings, User } from 'lucide-react'
+import { useMessageStore } from "../store/useMessageStore"
 
 export const Navbar = () =>
 {
 
   const { logout, authUser } = useAuthStore()
+
+  const { setOpenSelectedUserInfo } = useMessageStore()
 
   return (
     <header className="bg-base-100 border-b border-base-300 fixed w-full top-0 z-40 backdrop-blur-lg bg-base-100/80">
@@ -21,14 +24,14 @@ export const Navbar = () =>
           </div>
 
           <div className="flex items-center gap-2 ">
-            <Link to='/setting' className={ `btn btn-sm gap-2 transition-colors ` }>
+            <Link to='/setting' onClick={ () => setOpenSelectedUserInfo( false ) } className={ `btn btn-sm gap-2 transition-colors ` }>
               <Settings className=" w-4 h-4 cursor-pointer" />
               <span className="hidden sm:inline">Setting</span>
             </Link>
 
             { authUser && (
               <>
-                <Link to={ '/profile' } className={ `btn btn-sm gap-2` } >
+                <Link to={ '/profile' } onClick={ () => setOpenSelectedUserInfo( false ) } className={ `btn btn-sm gap-2` } >
                   <User className="size-5 cursor-pointer" />
                   <span className="hidden sm:inline">Profile</span>
                 </Link>
