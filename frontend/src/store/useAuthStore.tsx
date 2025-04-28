@@ -114,6 +114,7 @@ export const useAuthStore = create<AuthState>( ( set, get ) => ( {
       set( { authUser: null } )
       useMessageStore.getState().setSelectedUser( null )
       useMessageStore.getState().setAddPeople( false )
+      useMessageStore.getState().setOpenSelectedUserInfo( false )
       toast.success( "Logout Successfully" )
       get().disConnectSocket()
     }

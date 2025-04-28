@@ -21,10 +21,13 @@ export interface MessageState
     setSelectedUser: any,
     getMessages: any,
     sendMessages: any,
+    clearMessages: any,
     subscribeNewMessage: any,
     unSubscribeNewMessage: any,
     addPeople: boolean,
-    setAddPeople: ( value: boolean ) => void
+    setAddPeople: ( value: boolean ) => void,
+    openSelectedUserInfo: boolean,
+    setOpenSelectedUserInfo: ( value: boolean ) => void
 }
 
 export const useMessageStore = create<MessageState>( ( set, get ) => ( {
@@ -35,7 +38,10 @@ export const useMessageStore = create<MessageState>( ( set, get ) => ( {
     isUserLoading: false,
     isMessageLoading: false,
     addPeople: false,
+    openSelectedUserInfo: false,
     setAddPeople: ( value ) => set( { addPeople: value } ),
+    setOpenSelectedUserInfo: ( value ) => set( { openSelectedUserInfo: value } ),
+    clearMessages: () => set( { messages: [] } ),
 
     getUser: async () =>
     {
