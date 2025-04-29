@@ -1,3 +1,4 @@
+import { formatDateToReadable } from '../constants';
 import { useMessageStore } from '../store/useMessageStore';
 import { X } from 'lucide-react';
 
@@ -25,7 +26,7 @@ const ChatHeader = ( { showImg = true, className = 'justify-between' }: Props ) 
     }
 
     return (
-        <div className="p-3 border-b border-base-300">
+        <div className="p-2 border-b border-base-300">
             <div className={ `flex items-center ${ className }` }>
                 { showImg &&
                     <div className="flex items-center gap-3 cursor-pointer" onClick={ onClickSelectedUser }>
@@ -34,7 +35,10 @@ const ChatHeader = ( { showImg = true, className = 'justify-between' }: Props ) 
                                 <img src={ selectedUser.profilePic || "/avatar.png" } alt={ selectedUser.fullName } />
                             </div>
                         </div>
-                        <h3 className="font-medium">{ selectedUser.fullName }</h3>
+                        <div>
+                            <h3 className="font-medium">{ selectedUser.fullName }</h3>
+                            <span className="font-thin text-xs">{ `Last Seen: ${ formatDateToReadable( selectedUser.updatedAt.split( "T" )[ 0 ] ) }` }</span>
+                        </div>
                     </div>
                 }
                 <button className={ className } onClick={ onClickClose }>
