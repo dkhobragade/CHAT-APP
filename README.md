@@ -18,6 +18,8 @@ The project focuses on providing smooth user experience, secure real-time messag
  Delete Account Permentaly - **DONE**
 
  Emoji Support (Send and view emojis) -**DONE**
+
+ Open the selected User Info - **DONE**
  
  Group Chats (Create and join group conversations)-**UPCOMING**
 
