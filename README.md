@@ -20,12 +20,12 @@ The project focuses on providing smooth user experience, secure real-time messag
  Emoji Support (Send and view emojis) -**DONE**
 
  Open the selected User Info - **DONE**
+
+ Last Seen (Display last active time) -**DONE**
  
  Group Chats (Create and join group conversations)-**UPCOMING**
 
  Typing Indicator (See when the other user is typing) -**UPCOMING**
-
- Last Seen (Display last active time) -**UPCOMING**
 
  Message Read Receipts (Sent, Delivered, and Seen ticks) -**UPCOMING**
 
