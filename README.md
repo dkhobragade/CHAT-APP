@@ -70,7 +70,7 @@ Storage: cloudniary
 ⚙️ **Installation and Setup**
 
 # Clone the repository
-git clone https://github.com/your-username/whatsapp-clone.git
+[git clone https://github.com/your-username/whatsapp-clone.git](https://github.com/dkhobragade/CHAT-APP.git)
 
 # Navigate into the project directory
 cd CHAT-APP
