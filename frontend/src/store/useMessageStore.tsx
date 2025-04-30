@@ -41,7 +41,6 @@ export const useMessageStore = create<MessageState>( ( set, get ) => ( {
     openSelectedUserInfo: false,
     setAddPeople: ( value ) => set( { addPeople: value } ),
     setOpenSelectedUserInfo: ( value ) => set( { openSelectedUserInfo: value } ),
-    clearMessages: () => set( { messages: [] } ),
 
     getUser: async () =>
     {
@@ -90,6 +89,21 @@ export const useMessageStore = create<MessageState>( ( set, get ) => ( {
         catch ( err )
         {
             console.log( "Error while sending the messages", err )
+        }
+
+    },
+
+    clearMessages: async () =>
+    {
+        const { selectedUser } = get()
+        try
+        {
+            await axiosInstance.post( `message/clear-Messages/${ selectedUser._id }` )
+            set( { messages: [] } )
+        }
+        catch ( err )
+        {
+            console.log( "Error while clearing the messages", err )
         }
 
     },

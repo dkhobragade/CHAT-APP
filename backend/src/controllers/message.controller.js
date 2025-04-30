@@ -3,8 +3,6 @@ import { getReciverSocketId,io } from "../lib/socket.js"
 import User from "../models/auth.models.js"
 import Message from "../models/message.models.js"
 
-
-
 export const getUserForSideBar = async(req,res)=>{
     try{
         const loggedInUserId = req.user._id
@@ -29,7 +27,7 @@ export const getMessage = async(req,res)=>{
 
         const message = await Message.find({
             $or:[
-                {senderId:myId,receiverId:userToChatId},
+                {senderId:myId,receiverIdId:userToChatId},
                 {senderId:userToChatId,receiverId:myId}
             ]
         })
@@ -79,6 +77,29 @@ export const sendMessage = async (req,res) => {
         res.status(500).json({
             message:'Internal Server Error'
         })
+    }
+
+}
+
+
+export const clearMessages =async (req,res) => {
+
+    try{
+        const {id:userToChatId}= req.params
+        const myId = req.user._id
+
+        await Message.deleteMany({
+            $or: [
+              { senderId: myId, receiverId: userToChatId },
+              { senderId: userToChatId, receiverId: myId }
+            ]
+          });
+
+          res.status(200).json({ message: 'Messages cleared successfully.' });
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: 'Failed to clear messages.' });
     }
 
 }

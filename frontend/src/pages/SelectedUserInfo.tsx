@@ -7,13 +7,10 @@ export const SelectedUserInfo = () =>
     const { selectedUser, messages, clearMessages, setOpenSelectedUserInfo } = useMessageStore()
     const [ showMedia, setShowMedia ] = useState<boolean>( false )
 
-    console.log( "selectedUser", selectedUser )
-    console.log( "messages", messages )
-
     const onClickClearChat = () =>
     {
         setOpenSelectedUserInfo( false )
-        clearMessages()
+        // clearMessages()
     }
 
     const onClickShowMedia = () =>
