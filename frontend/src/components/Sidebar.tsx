@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useMessageStore } from '../store/useMessageStore'
 import SidebarSkeleton from './skeleton/SidebarSkeleton'
-import { User } from 'lucide-react'
+import { CircleFadingPlus, User } from 'lucide-react'
 import { useAuthStore } from '../store/useAuthStore'
 
 const Sidebar = () =>
@@ -28,9 +28,14 @@ const Sidebar = () =>
     return (
         <aside className='h-full w-20 lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200'>
             <div className='border-b border-base-300 w-full p-5'>
-                <div className='flex items-center gap-2'>
-                    <User className='size-6' />
-                    <button className="btn btn-dash btn-xs btn-info" onClick={ onClickAddPeople }>Invite a friend</button>
+                <div className='flex items-center justify-between gap-2'>
+                    <div className='flex gap-3'>
+                        <User className='size-6' />
+                        <button className="btn btn-dash btn-xs btn-info" onClick={ onClickAddPeople }>Invite a friend</button>
+                    </div>
+                    <div className="tooltip tooltip-right cursor-pointer" data-tip="Add Status">
+                        <CircleFadingPlus />
+                    </div>
                 </div>
             </div>
             <div className="overflow-y-auto w-full py-3">
