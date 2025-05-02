@@ -3,21 +3,26 @@ import Sidebar from '../components/Sidebar'
 import ChatContainer from '../components/ChatContainer'
 import { NoChatSelected } from '../components/NoChatSelected'
 import { AddPeopleContainer } from '../components/AddPeopleContainer'
+import { AddStatus } from './AddStatus'
 
 export const HomePage = () =>
 {
 
-    const { selectedUser, addPeople } = useMessageStore()
+    const { selectedUser, addPeople, openAddStatus } = useMessageStore()
 
     const renderChatContainer = () =>
     {
-        if ( addPeople && !selectedUser )
+        if ( addPeople && !selectedUser && !openAddStatus )
         {
             return <AddPeopleContainer />
         }
         else if ( selectedUser )
         {
             return <ChatContainer />
+        }
+        else if ( openAddStatus )
+        {
+            return <AddStatus />
         }
         else
         {

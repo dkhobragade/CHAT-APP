@@ -6,10 +6,11 @@ import MessageSkelton from './skeleton/MessageSkelton'
 import { useAuthStore } from '../store/useAuthStore'
 import { formatMessageTime } from '../lib/utils'
 import { SelectedUserInfo } from '../pages/SelectedUserInfo'
+import { AddStatus } from '../pages/AddStatus'
 
 const ChatContainer = () =>
 {
-    const { messages, getMessages, isMessageLoading, selectedUser, subscribeNewMessage, openSelectedUserInfo, unSubscribeNewMessage } = useMessageStore()
+    const { messages, getMessages, isMessageLoading, selectedUser, subscribeNewMessage, openSelectedUserInfo, unSubscribeNewMessage, openAddStatus } = useMessageStore()
     const { authUser } = useAuthStore()
     const messageEndRef = useRef<any>( null )
 
@@ -41,7 +42,7 @@ const ChatContainer = () =>
 
     return (
         <div className='flex-1 flex flex-col overflow-auto'>
-            { !openSelectedUserInfo && <>
+            { !openSelectedUserInfo && !openAddStatus && <>
                 <ChatHeader />
                 <div className='flex-1 overflow-y-auto p-4 space-y-4'>
                     { messages.map( ( mess ) => (
@@ -72,6 +73,7 @@ const ChatContainer = () =>
             </> }
 
             { openSelectedUserInfo && <SelectedUserInfo /> }
+            { openAddStatus && <AddStatus /> }
         </div>
     )
 }
