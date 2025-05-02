@@ -18,12 +18,14 @@ The project focuses on providing smooth user experience, secure real-time messag
  Delete Account Permentaly - **DONE**
 
  Emoji Support (Send and view emojis) -**DONE**
+
+ Open the selected User Info - **DONE**
+
+ Last Seen (Display last active time) -**DONE**
  
  Group Chats (Create and join group conversations)-**UPCOMING**
 
  Typing Indicator (See when the other user is typing) -**UPCOMING**
-
- Last Seen (Display last active time) -**UPCOMING**
 
  Message Read Receipts (Sent, Delivered, and Seen ticks) -**UPCOMING**
 
@@ -68,7 +70,7 @@ Storage: cloudniary
 ⚙️ **Installation and Setup**
 
 # Clone the repository
-git clone https://github.com/your-username/whatsapp-clone.git
+[git clone https://github.com/your-username/whatsapp-clone.git](https://github.com/dkhobragade/CHAT-APP.git)
 
 # Navigate into the project directory
 cd CHAT-APP

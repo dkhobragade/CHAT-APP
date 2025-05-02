@@ -10,7 +10,7 @@ export const SelectedUserInfo = () =>
     const onClickClearChat = () =>
     {
         setOpenSelectedUserInfo( false )
-        clearMessages()
+        // clearMessages()
     }
 
     const onClickShowMedia = () =>
