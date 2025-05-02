@@ -7,7 +7,7 @@ import { useAuthStore } from '../store/useAuthStore'
 const Sidebar = () =>
 {
 
-    const { getUser, users, selectedUser, setSelectedUser, isUserLoading, setAddPeople, setOpenSelectedUserInfo } = useMessageStore()
+    const { getUser, users, selectedUser, setSelectedUser, isUserLoading, setAddPeople, setOpenSelectedUserInfo, setOpenAddStatus } = useMessageStore()
     const { onlineUsers } = useAuthStore()
 
     useEffect( () =>
@@ -18,6 +18,7 @@ const Sidebar = () =>
     const onClickAddPeople = () =>
     {
         setOpenSelectedUserInfo( false )
+        setOpenAddStatus( false )
         setSelectedUser( null )
         setAddPeople( true )
     }
@@ -33,7 +34,7 @@ const Sidebar = () =>
                         <User className='size-6' />
                         <button className="btn btn-dash btn-xs btn-info" onClick={ onClickAddPeople }>Invite a friend</button>
                     </div>
-                    <div className="tooltip tooltip-right cursor-pointer" data-tip="Add Status">
+                    <div className="tooltip tooltip-right cursor-pointer" data-tip="Add Status" onClick={ () => setOpenAddStatus( true ) }>
                         <CircleFadingPlus />
                     </div>
                 </div>
@@ -42,7 +43,7 @@ const Sidebar = () =>
                 { users.map( ( user ) => (
                     <button
                         key={ user._id }
-                        onClick={ () => { setSelectedUser( user ), setOpenSelectedUserInfo( false ) } }
+                        onClick={ () => { setSelectedUser( user ), setOpenSelectedUserInfo( false ), setOpenAddStatus( false ) } }
                         className={ `
               w-full p-3 flex items-center gap-3
               hover:bg-base-300 transition-colors
