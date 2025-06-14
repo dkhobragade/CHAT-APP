@@ -99,21 +99,6 @@ export const useMessageStore = create<MessageState>( ( set, get ) => ( {
 
     },
 
-    clearMessages: async () =>
-    {
-        const { selectedUser } = get()
-        try
-        {
-            await axiosInstance.post( `message/clear-Messages/${ selectedUser._id }` )
-            set( { messages: [] } )
-        }
-        catch ( err )
-        {
-            console.log( "Error while clearing the messages", err )
-        }
-
-    },
-
     subscribeNewMessage: () =>
     {
         const { selectedUser } = get()
