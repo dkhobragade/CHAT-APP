@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 export const SelectedUserInfo = () =>
 {
-    const { selectedUser, messages, clearMessages, setOpenSelectedUserInfo } = useMessageStore()
+    const { selectedUser, messages, setOpenSelectedUserInfo } = useMessageStore()
     const [ showMedia, setShowMedia ] = useState<boolean>( false )
 
     const onClickClearChat = () =>

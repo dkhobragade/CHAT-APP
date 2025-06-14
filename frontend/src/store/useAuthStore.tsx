@@ -219,8 +219,3 @@ export const useAuthStore = create<AuthState>( ( set, get ) => ( {
     if ( get().socket?.connected ) get().socket.disconnect()
   }
 } ) );
-
-function setSelectedUser ()
-{
-  throw new Error( 'Function not implemented.' );
-}
